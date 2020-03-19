@@ -1,0 +1,66 @@
+<div class="container">
+  <h2 >Diagnostics</h2>
+  <!-- <button type="button" class="btn btn-primary" (click)="requestValue()">Refresh</button> -->
+  Bluetooth <span *ngIf="(device | async) as device">({{ device.name }})</span>
+  <button *ngIf="!(device | async)" (click)="requestValue()">
+    <i class="fab fa-bluetooth-b"></i>
+    Connect
+  </button>
+
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Axis</th>
+        <th scope="col">X</th>
+        <th scope="col">Y</th>
+        <th scope="col">Z</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Gyros</th>
+        <td>0.0</td>
+        <td>0.0</td>
+        <td>-0.1</td>
+      </tr>
+      <tr>
+        <th scope="row">Accels</th>
+        <td>0.33</td>
+        <td>0.11</td>
+        <td>9.88</td>
+      </tr>
+      <tr>
+        <th scope="row">Orientation</th>
+        <!-- <td>0</td>
+            <td>0</td>
+            <td>0</td> -->
+        <td>{{value.X}}</td>
+        <td>{{value.Y}}</td>
+        <td>{{value.Z}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">Temp(C)</th>
+        <td>26.31</td>
+      </tr>
+      <tr>
+        <th scope="row">Pressure(mbar)</th>
+        <td>999.32</td>
+      </tr>
+      <tr>
+        <th scope="row">System Voltage</th>
+        <td>12.38</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  {{ value || "000" }}
+
+</div>
