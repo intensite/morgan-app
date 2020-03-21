@@ -1,5 +1,14 @@
-<a [routerLink]="['/diag']">Diagnostics</a>&nbsp;
-<a [routerLink]="['/sys-prefs']">System Prefs</a>
+<div class="container">
 
+    <nav class="nav">
+        <a class="nav-link" [routerLink]="['/diag']">Diagnostics</a>
+        <a class="nav-link" [routerLink]="['/sys-prefs']">System Prefs</a>
+        <a class="nav-link" [routerLink]="['/pyro']">Pyro Control</a>
+    </nav>
 
-<router-outlet></router-outlet>
+    <!-- <app-diag></app-diag>
+    <sys-prefs></sys-prefs> -->
+
+    <router-outlet></router-outlet>
+
+</div>

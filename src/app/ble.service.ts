@@ -42,8 +42,6 @@ export class BleService {
   }
 
   setValue(characteristic: BluetoothCharacteristicUUID, value: any) {
-
-
     return this.ble.setCharacteristicState(this._config.service, characteristic, this.str2ab(value));
   }
 
