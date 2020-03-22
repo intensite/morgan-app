@@ -1,11 +1,16 @@
 <div class="container">
-  <h2 >Diagnostics</h2>
-  <!-- <button type="button" class="btn btn-primary" (click)="requestValue()">Refresh</button> -->
-  Bluetooth <span *ngIf="(device | async) as device">({{ device.name }})</span>
-  <button *ngIf="!(device | async)" (click)="requestValue()">
-    <i class="fab fa-bluetooth-b"></i>
-    Connect
-  </button>
+  <h2>Diagnostics</h2>
+  <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
+    Bluetooth is not connected
+    <span>
+      <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
+        <i class="fab fa-bluetooth-b"></i> Connect
+      </button>
+    </span>
+  </div>
+  <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
+    Connected to ({{ device.name }})
+  </div>
 
 
 
@@ -61,6 +66,6 @@
     </tbody>
   </table>
 
-  {{ value || "000" }}
+  Debug:   {{ value || "000" }}
 
 </div>

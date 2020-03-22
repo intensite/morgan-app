@@ -1,0 +1,347 @@
+<div class="container">
+    <h2>Guidage</h2>
+
+    <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
+        Bluetooth is not connected
+        <span>
+            <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
+                <i class="fab fa-bluetooth-b"></i> Connect
+            </button>
+        </span>
+    </div>
+    <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
+        Connected to ({{ device.name }})
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header">
+                    Parametres
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="pyro1" class="col-sm-6 col-form-label">Type de guidage:</label>
+                        <div class="col-sm-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioType1"
+                                    value="option1">
+                                <label class="form-check-label" for="radioType1">TVC</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioType2"
+                                    value="option2">
+                                <label class="form-check-label" for="radioType2">Ailettes</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <div class="custom-switch">
+                                <input class="custom-control-input" type="checkbox" id="abort">
+                                <label class="custom-control-label" for="abort">Controle du roulis:</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioRollType1"
+                                    value="option1">
+                                <label class="form-check-label" for="radioRollType1">Roue de réaction</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioRollType2"
+                                    value="option2">
+                                <label class="form-check-label" for="radioRollType2">Ailettes Axe-X</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    Servo Mapping
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+
+
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>Axe-X</th>
+                                        <th>Axe-Y</th>
+                                        <th>Axe-Z</th>
+                                        <th>Autre</th>
+                                        <th>Rotation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Servo #1</th>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo1Options"
+                                                     value="option1">
+                                                <label class="form-check-label" >X</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo1Options"
+                                                     value="option1">
+                                                <label class="form-check-label" >Y</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo1Options"
+                                                     value="option1">
+                                                <label class="form-check-label" >Z</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo1Options"
+                                                     value="option1">
+                                                <label class="form-check-label" >A</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active">
+                                                    <input type="radio" name="options" id="servo1RotaLeft" checked><i
+                                                        class="fas fa-undo"></i>
+                                                </label>
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="options" id="servo1RotaRight"><i
+                                                        class="fas fa-undo fa-flip-horizontal"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Servo #2</th>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="servo2OptionsX" value="option1">
+                                                <label class="form-check-label" for="servo2OptionsX">X</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="servo2OptionsY" value="option1">
+                                                <label class="form-check-label" for="servo2OptionsY">Y</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="servo2OptionsZ" value="option1">
+                                                <label class="form-check-label" for="servo2OptionsZ">Z</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="servo2OptionsA" value="option1">
+                                                <label class="form-check-label" for="servo2OptionsA">A</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active">
+                                                    <input type="radio" name="options" id="servo2RotaLeft" checked><i
+                                                        class="fas fa-undo"></i>
+                                                </label>
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="options" id="servo2RotaRight"><i
+                                                        class="fas fa-undo fa-flip-horizontal"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Servo #3</th>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo3Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">X</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">Y</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">Z</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo2Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">A</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active">
+                                                    <input type="radio" name="options" id="servo3RotaLeft" checked><i
+                                                        class="fas fa-undo"></i>
+                                                </label>
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="options" id="servo3RotaRight"><i
+                                                        class="fas fa-undo fa-flip-horizontal"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Servo #4</th>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo4Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">X</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo4Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">Y</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo4Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">Z</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="servo4Options"
+                                                    id="inlineRadio1" value="option1">
+                                                <label class="form-check-label" for="inlineRadio1">A</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active">
+                                                    <input type="radio" name="options" id="servo4RotaLeft" checked><i
+                                                        class="fas fa-undo"></i>
+                                                </label>
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="options" id="servo4RotaLeft"><i
+                                                        class="fas fa-undo fa-flip-horizontal"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Servo Alignement
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-5">
+                            <div class="row"><label for="" class="col-form-label">Axe-X (deg.)</label></div>
+                            <div class="row">
+                                <div class="col-sm-1 no-padding"><button type="button"
+                                        class="btn btn-secondary btn-sm float-right"><i class="fas fa-minus-circle"
+                                            (click)="alignementX=alignementX-1"></i></button></div>
+                                <div class="col-sm-2 no-padding"><input type="text" readonly
+                                        class="form-control form-control-sm input-center" value="90" readonly
+                                        [(ngModel)]="alignementX"></div>
+                                <div class="col-sm-1 no-padding"><button type="button" class="btn btn-secondary btn-sm"
+                                        (click)="alignementX=alignementX+1"><i class="fas fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row"><label for="" class="col-form-label">Axe-Y (deg.)</label></div>
+                            <div class="row">
+                                <div class="col-sm-1 no-padding"><button type="button"
+                                        class="btn btn-secondary btn-sm float-right"><i class="fas fa-minus-circle"
+                                            (click)="alignementY=alignementY-1"></i></button></div>
+                                <div class="col-sm-2 no-padding"><input type="text" readonly
+                                        class="form-control form-control-sm input-center" value="90" readonly
+                                        [(ngModel)]="alignementY"></div>
+                                <div class="col-sm-2 no-padding">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        (click)="alignementY=alignementY+1"><i class="fas fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Ajustements Controle PID
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Axe-X<br />Pitch</th>
+                                <th>Axe-Y<br />Yaw</th>
+                                <th>Axe-Z<br />Roll</th>
+                            </tr>
+                            <tr>
+                                <td>P: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>P: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>P: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;I: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>&nbsp;I: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>&nbsp;I: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                            </tr>
+                            <tr>
+                                <td>D: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>D: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                                <td>D: <span class="pid"><input type="number"
+                                            class="form-control form-control-sm"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -15,53 +15,60 @@
 
     <form [formGroup]="sysPrefsForm">
 
-        <div class="form-group row">
-            <div class="col-sm-4">Buzzer Enabled:</div>
-            <!-- <div class="col-sm">Current: {{ value.BUZZER_ENABLE }}</div> -->
-            <div class="col-sm-1">
-                <div class="form-check">
-                    <input class="form-check-input position-static" type="checkbox" name="BUZZER_ENABLE" formControlName="BUZZER_ENABLE"
-                        (click)="update($event)">
-                </div>
+        <div class="card">
+            <div class="card-header">
+                Preferences Systeme
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-4">Debug Enabled:</div>
-            <!-- <div class="col-sm-4">Current: {{value.DEBUG}}</div> -->
-            <div class="col-sm-1">
-                <div class="form-check">
-                    <input class="form-check-input position-static" type="checkbox" name="DEBUG" formControlName="DEBUG"
-                        (click)="update($event)">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-4">Buzzer Enabled:</div>
+                    <!-- <div class="col-sm">Current: {{ value.BUZZER_ENABLE }}</div> -->
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox" name="BUZZER_ENABLE"
+                                formControlName="BUZZER_ENABLE" (click)="update($event)">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-4">Memory Enabled:</div>
-            <!-- <div class="col-sm-1">Current: {{value.MEMORY_CARD_ENABLED}}</div> -->
-            <div class="col-sm-1">
-                <div class="form-check">
-                    <input class="form-check-input position-static" type="checkbox" name="MEMORY_CARD_ENABLED"
-                        formControlName="MEMORY_CARD_ENABLED" (click)="update($event)">
+                <div class="form-group row">
+                    <div class="col-sm-4">Debug Enabled:</div>
+                    <!-- <div class="col-sm-4">Current: {{value.DEBUG}}</div> -->
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox" name="DEBUG"
+                                formControlName="DEBUG" (click)="update($event)">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-4">Memory recovery mode:</div>
-            <!-- <div class="col-sm-1">Current: {{value.DATA_RECOVERY_MODE}}</div> -->
-            <div class="col-sm-1">
-                <div class="form-check">
-                    <input class="form-check-input position-static" type="checkbox" name="DATA_RECOVERY_MODE"
-                        formControlName="DATA_RECOVERY_MODE" (click)="update($event)">
+                <div class="form-group row">
+                    <div class="col-sm-4">Memory Enabled:</div>
+                    <!-- <div class="col-sm-1">Current: {{value.MEMORY_CARD_ENABLED}}</div> -->
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox" name="MEMORY_CARD_ENABLED"
+                                formControlName="MEMORY_CARD_ENABLED" (click)="update($event)">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-4">Format Memory:</div>
-            <!-- <div class="col-sm-1">Current: {{value.FORMAT_MEMORY}}</div> -->
-            <div class="col-sm-1">
-                <div class="form-check">
-                    <input class="form-check-input position-static" type="checkbox" name="FORMAT_MEMORY" formControlName="FORMAT_MEMORY"
-                        (click)="update($event)">
+                <div class="form-group row">
+                    <div class="col-sm-4">Memory recovery mode (Au redemarrage):</div>
+                    <!-- <div class="col-sm-1">Current: {{value.DATA_RECOVERY_MODE}}</div> -->
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox" name="DATA_RECOVERY_MODE"
+                                formControlName="DATA_RECOVERY_MODE" (click)="update($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">Format Memory:</div>
+                    <!-- <div class="col-sm-1">Current: {{value.FORMAT_MEMORY}}</div> -->
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input position-static" type="checkbox" name="FORMAT_MEMORY"
+                                formControlName="FORMAT_MEMORY" (click)="update($event)">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
