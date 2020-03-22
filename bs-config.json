@@ -1,0 +1,6 @@
+{
+    "https": true,
+    "server": {
+        "baseDir": "dist/morgan-app"
+    }
+}
