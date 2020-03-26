@@ -26,9 +26,10 @@ export class DiagComponent implements OnInit, OnDestroy {
   valuesSubscription: Subscription;
   streamSubscription: Subscription;
   value = {
-    X: 0,
-    Y: 0,
-    Z: 0
+    X: 0, Y: 0, Z: 0,
+    AX: 0, AY: 0, AZ: 0,
+    ALT: 0, TEMP: 0, KPA: 0,
+    HUM: 0, VOLT: 0
   };
 
 
@@ -43,15 +44,26 @@ export class DiagComponent implements OnInit, OnDestroy {
         // const count = value.getUint32(0, true);
         // const time = value.getUint32(4, true);
         // const raw = value;
-        const YAW_AXIS = 0;                        // MPU-6050 Axis when mounted on rocket configuration (Z Axis when flat)
+        const YAW_AXIS = 0;                         // MPU-6050 Axis when mounted on rocket configuration (Z Axis when flat)
         const ROLL_AXIS = 1;
-        const PITCH_AXIS = 2;                        // MPU-6050 Axis when mounted on rocket configuration (Y Axis when flat)
+        const PITCH_AXIS = 2;                       // MPU-6050 Axis when mounted on rocket configuration (Y Axis when flat)
+        const ACC_X = 3;                            // ACCELEROMETER_X AXIS
+        const ACC_Y = 4;                            // ACCELEROMETER_Y AXIS
+        const ACC_Z = 5;                            // ACCELEROMETER_Z AXIS
+        const ALTI = 6;                             // ALTITUDE
+        const TEMPC = 7;                             // TEMPERATURE
+        const PRESS = 8;                            // PRESSURE IN KPA
+        const HUMID = 9;                            // HUMIDITY
+        const VOLTAGE = 10;                         // VOLTAGE
 
         const enc = new TextDecoder('utf-8');
         const decoded = _.split(enc.decode(value), '|');
 
         return {
-          X: decoded[YAW_AXIS], Y: decoded[PITCH_AXIS], Z: decoded[ROLL_AXIS]
+          X: decoded[YAW_AXIS], Y: decoded[PITCH_AXIS], Z: decoded[ROLL_AXIS],
+          AX: decoded[ACC_X], AY: decoded[ACC_Y], AZ: decoded[ACC_Z],
+          ALT: decoded[ALTI], TEMP: decoded[TEMPC], KPA: decoded[PRESS],
+          HUM: decoded[HUMID], VOLT: decoded[VOLTAGE]
         };
       },
       // service: "ef680400-9b35-4933-9b10-52ffa9740042",
@@ -93,11 +105,11 @@ export class DiagComponent implements OnInit, OnDestroy {
   // }
 
   ngOnDestroy() {
-    if(this.valuesSubscription) {
+    if (this.valuesSubscription) {
       this.valuesSubscription.unsubscribe();
     }
 
-    if(this.streamSubscription) {
+    if (this.streamSubscription) {
       this.streamSubscription.unsubscribe();
     }
   }
