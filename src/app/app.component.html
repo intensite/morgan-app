@@ -7,8 +7,18 @@
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/guidance']">Guidage</a>
     </nav>
 
-    <!-- <app-diag></app-diag>
-    <sys-prefs></sys-prefs> -->
+
+    <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
+        Bluetooth is not connected
+        <span>
+            <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
+                <i class="fab fa-bluetooth-b"></i> Connect
+            </button>
+        </span>
+    </div>
+    <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
+        Connected to ({{ device.name }})
+    </div>
 
     <router-outlet></router-outlet>
 

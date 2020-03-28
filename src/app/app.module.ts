@@ -7,16 +7,16 @@ import * as _ from 'lodash';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiagComponent } from './diag/diag.component';
 import { SysPrefsComponent } from './sys-prefs/sys-prefs.component';
+import { DiagComponent } from './diag/diag.component';
 import { PyroComponent } from './pyro/pyro.component';
 import { GuidanceComponent } from './guidance/guidance.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DiagComponent,
     SysPrefsComponent,
+    DiagComponent,
     PyroComponent,
     GuidanceComponent
   ],

@@ -1,18 +1,5 @@
 <div class="container">
   <h2>Diagnostics</h2>
-  <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
-    Bluetooth is not connected
-    <span>
-      <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
-        <i class="fab fa-bluetooth-b"></i> Connect
-      </button>
-    </span>
-  </div>
-  <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
-    Connected to ({{ device.name }})
-  </div>
-
-
 
   <table class="table">
     <thead>
@@ -38,9 +25,6 @@
       </tr>
       <tr>
         <th scope="row">Orientation</th>
-        <!-- <td>0</td>
-            <td>0</td>
-            <td>0</td> -->
         <td>{{value.X}}</td>
         <td>{{value.Y}}</td>
         <td>{{value.Z}}</td>

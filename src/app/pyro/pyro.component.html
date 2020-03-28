@@ -8,7 +8,6 @@
                     Parametres Pyros
                 </div>
                 <div class="card-body">
-                    <!-- <h5 class="card-title">Altitude de declanchement (Metres)</h5> -->
                     <div class="form-group row">
                         <label for="pyro1" class="col-sm-6 col-form-label">Temps d'activation (sec):</label>
                         <div class="col-sm-6">
@@ -41,7 +40,6 @@
                             <input type="number" class="form-control" id="pyro4">
                         </div>
                     </div>
-                    <!-- <h5 class="card-title">Altitude de declanchement (Metres)</h5> -->
                     <div class="form-group row">
                         <div class="col-sm">
                             <div class="form-check">
@@ -82,7 +80,7 @@
                             </div>
                         </div>
                         <div class="col-sm-8">
-                            <button type="button" class="btn btn-danger btn-block" [disabled]="!testButtons[0]">Fire
+                            <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_1" [disabled]="!testButtons[0]" (click)="update($event)">Fire
                                 #1  <i class="fas fa-fire"></i></button>
                         </div>
                     </div>

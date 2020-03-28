@@ -1,18 +1,6 @@
 <div class="container">
     <h2>Guidage</h2>
 
-    <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
-        Bluetooth is not connected
-        <span>
-            <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
-                <i class="fab fa-bluetooth-b"></i> Connect
-            </button>
-        </span>
-    </div>
-    <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
-        Connected to ({{ device.name }})
-    </div>
-
     <div class="row">
         <div class="col-sm">
             <div class="card">
