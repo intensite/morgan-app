@@ -19,6 +19,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     MEMORY_CARD_ENABLED: 0,
     DATA_RECOVERY_MODE: 0,
     FORMAT_MEMORY: 0,
+    SCAN_TIME_INTERVAL: 0,
   });
 
 
@@ -31,6 +32,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     MEMORY_CARD_ENABLED: 0,
     DATA_RECOVERY_MODE: 0,
     FORMAT_MEMORY: 0,
+    SCAN_TIME_INTERVAL: 0,
     // corrEn: 0,
     // corrTime: 0,
     // corrRate: 0,
@@ -50,6 +52,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     MEMORY_CARD_ENABLED: 'SET MEM_ENABLED ',
     DATA_RECOVERY_MODE: 'SET DATA_MODE ',
     FORMAT_MEMORY: 'SET FORMAT_MEM ',
+    SCAN_TIME_INTERVAL: 'SET SCAN_TIME_INTERVAL ',
   };
 
   constructor(private fb: FormBuilder, public service: BleService) { }
@@ -63,6 +66,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
       MEMORY_CARD_ENABLED: parseInt(decoded[2], 2) == 1 ? true : false,
       DATA_RECOVERY_MODE: parseInt(decoded[3], 2) == 1 ? true : false,
       FORMAT_MEMORY: parseInt(decoded[4], 2) == 1 ? true : false,
+      SCAN_TIME_INTERVAL: parseInt(decoded[5], 10),
     };
   }
 
@@ -72,6 +76,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
 
   updateValue(value) {
     this.value = value;
+    // console.log(value);
     this.sysPrefsForm.setValue(this.value);
   }
 
