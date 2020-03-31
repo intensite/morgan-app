@@ -48,13 +48,13 @@ export class BleService {
     console.log(device);
     await this.ble.connectDevice(device)
     console.log(this.ble._gattServer);
-
+    
     this.primaryService = await this.ble.getPrimaryService(this.ble._gattServer, BLE_SERVICE);
     console.log(this.primaryService);
 
-
     this.paramCharacteristic = await this.ble.getCharacteristic(this.primaryService, PARAM_CHARACT);
     // console.log(this.paramCharacteristic);
+    
 
     this.ble.observeValue$(this.paramCharacteristic).pipe(map(this.decoder)).subscribe(value => {
       this.paramSource.next(value);

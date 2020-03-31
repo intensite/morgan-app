@@ -11,34 +11,55 @@ import * as _ from 'lodash';
     styleUrls: ['./pyro.component.css'],
 })
 
-
 export class PyroComponent implements OnInit, OnDestroy {
-    testButtons = [true, false, true, false];
+    testButtons = [false, false, false, false];
 
     pyroForm = this.fb.group({
-        DEBUG: 0,
-        BUZZER_ENABLE: 0,
-        MEMORY_CARD_ENABLED: 0,
-        DATA_RECOVERY_MODE: 0,
-        FORMAT_MEMORY: 0,
+        APOGEE_DIFF_METERS: ["", {updateOn: "blur"}],
+        PARACHUTE_DELAY: ["", {updateOn: "blur"}],
+        PYRO_ACTIVATION_DELAY: ["", {updateOn: "blur"}],
+        PYRO_1_FIRE_ALTITUDE: ["", {updateOn: "blur"}],
+        PYRO_2_FIRE_ALTITUDE: ["", {updateOn: "blur"}],
+        PYRO_3_FIRE_ALTITUDE: ["", {updateOn: "blur"}],
+        PYRO_4_FIRE_ALTITUDE: ["", {updateOn: "blur"}],
+        AUTOMATIC_ANGLE_ABORT: "", 
+        EXCESSIVE_ANGLE_THRESHOLD: ["", {updateOn: "blur"}],
+        EXCESSIVE_ANGLE_TIME: ["", {updateOn: "blur"}],
     });
 
     valuesSubscription: Subscription;
 
     value = {
-        DEBUG: 0,
-        BUZZER_ENABLE: 0,
-        MEMORY_CARD_ENABLED: 0,
-        DATA_RECOVERY_MODE: 0,
-        FORMAT_MEMORY: 0,
-        // corrEn: 0,
-        // corrTime: 0,
-        // corrRate: 0,
-        // launchDetect: 0,
+        APOGEE_DIFF_METERS: 0,
+        PARACHUTE_DELAY: 0,
+        PYRO_ACTIVATION_DELAY: 0,
+        PYRO_1_FIRE_ALTITUDE: 0,
+        PYRO_2_FIRE_ALTITUDE: 0,
+        PYRO_3_FIRE_ALTITUDE: 0,
+        PYRO_4_FIRE_ALTITUDE: 0,
+        AUTOMATIC_ANGLE_ABORT: 0,
+        EXCESSIVE_ANGLE_THRESHOLD: 0,
+        EXCESSIVE_ANGLE_TIME: 0,
     };
 
     MESSAGE_KEY = {
+        APOGEE_DIFF_METERS: 'SET APOGEE_DIFF_METERS ',
+        PARACHUTE_DELAY: 'SET PARACHUTE_DELAY ',
+        PYRO_ACTIVATION_DELAY: 'SET PYRO_ACTIVATION_DELAY ',
+        PYRO_1_FIRE_ALTITUDE: 'SET PYRO_1_FIRE_ALTITUDE ',
+        PYRO_2_FIRE_ALTITUDE: 'SET PYRO_2_FIRE_ALTITUDE ',
+        PYRO_3_FIRE_ALTITUDE: 'SET PYRO_3_FIRE_ALTITUDE ',
+        PYRO_4_FIRE_ALTITUDE: 'SET PYRO_4_FIRE_ALTITUDE ',
+        AUTOMATIC_ANGLE_ABORT: 'SET AUTOMATIC_ANGLE_ABORT ',
+        EXCESSIVE_ANGLE_THRESHOLD: 'SET EXCESSIVE_ANGLE_THRESHOLD ',
+        EXCESSIVE_ANGLE_TIME: 'SET EXCESSIVE_ANGLE_TIME ',
+                
         FIRE_PYRO_1: 'SET FIRE_PYRO 1',
+        FIRE_PYRO_2: 'SET FIRE_PYRO 2',
+        FIRE_PYRO_3: 'SET FIRE_PYRO 3',
+        FIRE_PYRO_4: 'SET FIRE_PYRO 4',
+        RESET_PYRO: 'SET RESET_PYRO 1'
+
     };
 
     constructor(private fb: FormBuilder, public service: BleService) { }
@@ -52,17 +73,22 @@ export class PyroComponent implements OnInit, OnDestroy {
         const decoded = _.split(value, '|');
 
         return {
-            DEBUG: parseInt(decoded[0], 2) == 1 ? true : false,
-            BUZZER_ENABLE: parseInt(decoded[1], 2) == 1 ? true : false,
-            MEMORY_CARD_ENABLED: parseInt(decoded[2], 2) == 1 ? true : false,
-            DATA_RECOVERY_MODE: parseInt(decoded[3], 2) == 1 ? true : false,
-            FORMAT_MEMORY: parseInt(decoded[4], 2) == 1 ? true : false,
+            APOGEE_DIFF_METERS: parseInt(decoded[0], 10),
+            PARACHUTE_DELAY: parseInt(decoded[1], 10),
+            PYRO_ACTIVATION_DELAY: parseInt(decoded[2], 10),
+            PYRO_1_FIRE_ALTITUDE: parseInt(decoded[3], 10),
+            PYRO_2_FIRE_ALTITUDE: parseInt(decoded[4], 10),
+            PYRO_3_FIRE_ALTITUDE: parseInt(decoded[5], 10),
+            PYRO_4_FIRE_ALTITUDE: parseInt(decoded[6], 10),
+            AUTOMATIC_ANGLE_ABORT: parseInt(decoded[7], 2) == 1 ? true : false,
+            EXCESSIVE_ANGLE_THRESHOLD: parseInt(decoded[8], 10),
+            EXCESSIVE_ANGLE_TIME: parseInt(decoded[9], 10),
         };
     }
 
     updateValue(value) {
         this.value = value;
-        this.pyroForm.setValue(this.value);
+        // this.pyroForm.setValue(this.value);
     }
 
     disconnect() {
@@ -77,10 +103,26 @@ export class PyroComponent implements OnInit, OnDestroy {
         console.log(e);
         console.log(`${this.MESSAGE_KEY[e.target.name]}`);
 
-        if (e.target.type == 'button') {
-            this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}`);
+        switch (e.target.type) {
+            case 'button': 
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}`);
+            break;
+            case 'number': 
+                if(Number.isInteger(e.target.valueAsNumber)){
+                    this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.value}`);
+                }
+            break;
+            case 'checkbox': 
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+            break;
         }
-        // this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+    }
+
+    resetPyros() {
+        // Reset the lock checkboxes
+        this.testButtons = [false, false, false, false];
+        this.service.setValue(0x1a01, this.MESSAGE_KEY.RESET_PYRO);
+
     }
 
     ngOnDestroy() {

@@ -1,149 +1,173 @@
 <div class="container">
     <h2>Configuration Pyro</h2>
 
-    <div class="row">
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-header">
-                    Parametres Pyros
+    <form [formGroup]="pyroForm">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header">
+                        Parametres Pyros
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="pyro1" class="col-sm-6 col-form-label">Temps d'activation (sec):<span class='current-val'>{{value.PYRO_ACTIVATION_DELAY}}</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="onTime" name="PYRO_ACTIVATION_DELAY"
+                                    formControlName="PYRO_ACTIVATION_DELAY" (blur)="update($event)">
+                            </div>
+                        </div>
+
+                        <h5>Detection de l'appogée</h5>
+                        <div class="form-group row">
+                            <label for="pyro1" class="col-sm-6 col-form-label">Tolerance (Metres):<span class='current-val'>{{value.PARACHUTE_DELAY}}</span></label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" id="appogee_diff" name="APOGEE_DIFF_METERS"
+                                    formControlName="APOGEE_DIFF_METERS" (blur)="update($event)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pyro1" class="col-sm-6 col-form-label">Délais (Sec.):<span class='current-val'>{{value.PARACHUTE_DELAY}}</span></label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" id="appogee_delay" name="PARACHUTE_DELAY"
+                                    formControlName="PARACHUTE_DELAY" (blur)="update($event)">
+                            </div>
+                        </div>
+
+
+                        <p>Altitude de declanchement (Metres)<span style="font-size:small;"> &nbsp; 0:innactif
+                                -1:appogée</span></p>
+                        <div class="form-group row">
+                            <label for="pyro1" class="col-sm-4 col-form-label">Pyro 1:<span class='current-val'>{{value.PYRO_1_FIRE_ALTITUDE}}</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="pyro1" name="PYRO_1_FIRE_ALTITUDE"
+                                    formControlName="PYRO_1_FIRE_ALTITUDE" (blur)="update($event)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pyro2" class="col-sm-4 col-form-label">Pyro 2:<span class='current-val'>{{value.PYRO_2_FIRE_ALTITUDE}}</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="pyro2" name="PYRO_2_FIRE_ALTITUDE"
+                                    formControlName="PYRO_2_FIRE_ALTITUDE" (blur)="update($event)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pyro3" class="col-sm-4 col-form-label">Pyro 3:<span class='current-val'>{{value.PYRO_3_FIRE_ALTITUDE}}</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="pyro3" name="PYRO_3_FIRE_ALTITUDE"
+                                    formControlName="PYRO_3_FIRE_ALTITUDE" (blur)="update($event)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pyro4" class="col-sm-4 col-form-label">Pyro 4:<span class='current-val'>{{value.PYRO_4_FIRE_ALTITUDE}}</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="pyro4" name="PYRO_4_FIRE_ALTITUDE"
+                                    formControlName="PYRO_4_FIRE_ALTITUDE" (blur)="update($event)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="abort"
+                                        name="AUTOMATIC_ANGLE_ABORT" formControlName="AUTOMATIC_ANGLE_ABORT" [checked]="value.AUTOMATIC_ANGLE_ABORT"
+                                        (click)="update($event)">
+                                    <label class="form-check-label" for="abort">Fonction d'abandon (On/Off)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pyro1" class="col-sm-6 col-form-label">Abandon a (deg./temps):<span class='current-val'>{{value.EXCESSIVE_ANGLE_THRESHOLD}}/{{value.EXCESSIVE_ANGLE_TIME}}</span></label>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" id="abortDeg" name="EXCESSIVE_ANGLE_THRESHOLD"
+                                    formControlName="EXCESSIVE_ANGLE_THRESHOLD" (blur)="update($event)">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" id="abortDeg" name="EXCESSIVE_ANGLE_TIME"
+                                    formControlName="EXCESSIVE_ANGLE_TIME" (blur)="update($event)">
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label for="pyro1" class="col-sm-6 col-form-label">Temps d'activation (sec):</label>
-                        <div class="col-sm-6">
-                            <input type="number" class="form-control" id="onTime">
-                        </div>
-                    </div>
 
-                    <h5>Detection de l'appogée</h5>
-                    <div class="form-group row">
-                        <label for="pyro1" class="col-sm-4 col-form-label">Tolerance (Metres):</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="appogee_diff">
-                        </div>
+            </div>
+            <!-- ---------------------------------- -->
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header">
+                        Tests des cannaux Pyro
                     </div>
-                    <div class="form-group row">
-                        <label for="pyro1" class="col-sm-4 col-form-label">Délais (Sec.):</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="appogee_delay">
+                    <div class="card-body">
+                        <h5 class="card-title">Attention!</h5>
+                        <p class="card-text">Une fois armée, la charge connectée au canal Pyro sera activée à l'instant
+                            ou le bouton "Fire" sera actionné.</p>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [checked]="testButtons[0]"
+                                        id="pyro1" (change)="testButtons[0]=!testButtons[0]">
+                                    <label class="form-check-label" for="pyro1">Pyro 1:</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_1"
+                                    [disabled]="!testButtons[0]" (click)="update($event)">Fire
+                                    #1 <i class="fas fa-fire"></i></button>
+                            </div>
                         </div>
-                    </div>
-                    
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [checked]="testButtons[1]" value=""
+                                        id="pyro2" (change)="testButtons[1]=!testButtons[1]">
+                                    <label class="form-check-label" for="pyro2">Pyro 2:</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_2"
+                                    [disabled]="!testButtons[1]" (click)="update($event)">Fire
+                                    #2 <i class="fas fa-fire"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [checked]="testButtons[2]" value=""
+                                        id="pyro3" (change)="testButtons[2]=!testButtons[2]">
+                                    <label class="form-check-label" for="pyro3">Pyro 3:</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_3"
+                                    [disabled]="!testButtons[2]" (click)="update($event)">Fire
+                                    #3 <i class="fas fa-fire"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" [checked]="testButtons[3]" value=""
+                                        id="pyro4" (change)="testButtons[3]=!testButtons[3]">
+                                    <label class="form-check-label" for="pyro4">Pyro 4:</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_4"
+                                    [disabled]="!testButtons[3]" (click)="update($event)">Fire
+                                    #4 <i class="fas fa-fire"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
 
-                    <p>Altitude de declanchement (Metres)<span style="font-size:small;"> &nbsp; 0:innactif -1:appogée</span></p>
-                    <div class="form-group row">
-                        <label for="pyro1" class="col-sm-4 col-form-label">Pyro 1:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="pyro1">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="pyro2" class="col-sm-4 col-form-label">Pyro 2:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="pyro2">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="pyro3" class="col-sm-4 col-form-label">Pyro 3:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="pyro3">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="pyro4" class="col-sm-4 col-form-label">Pyro 4:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" id="pyro4">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="abort">
-                                <label class="form-check-label" for="abort">Fonction d'abandon (On/Off)</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-success btn-block"
+                                    (click)=resetPyros()>Reset</button>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="pyro1" class="col-sm-6 col-form-label">Abandon a (deg./temps):</label>
-                        <div class="col-sm-3">
-                            <input type="number" class="form-control" id="abortDeg">
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="number" class="form-control" id="abortDeg">
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
         </div>
-        <!-- ---------------------------------- -->
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-header">
-                    Tests des cannaux Pyro
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Attention!</h5>
-                    <p class="card-text">Une fois armée, la charge connectée au canal Pyro sera activée à l'instant ou le bouton "Fire" sera actionné.</p>
-                    <div class="form-group row">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" [checked]="testButtons[0]" id="pyro1"
-                                    (change)="testButtons[0]=!testButtons[0]">
-                                <label class="form-check-label" for="pyro1">Pyro 1:</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-danger btn-block" name="FIRE_PYRO_1" [disabled]="!testButtons[0]" (click)="update($event)">Fire
-                                #1  <i class="fas fa-fire"></i></button>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" [checked]="testButtons[1]" value=""
-                                    id="pyro2" (change)="testButtons[1]=!testButtons[1]">
-                                <label class="form-check-label" for="pyro2">Pyro 2:</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-danger btn-block" [disabled]="!testButtons[1]">Fire
-                                #2  <i class="fas fa-fire"></i></button>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" [checked]="testButtons[2]" value=""
-                                    id="pyro3" (change)="testButtons[2]=!testButtons[2]">
-                                <label class="form-check-label" for="pyro3">Pyro 3:</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-danger btn-block" [disabled]="!testButtons[2]">Fire
-                                #3  <i class="fas fa-fire"></i></button>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" [checked]="testButtons[3]" value=""
-                                    id="pyro4" (change)="testButtons[3]=!testButtons[3]">
-                                <label class="form-check-label" for="pyro4">Pyro 4:</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-danger btn-block" [disabled]="!testButtons[3]">Fire
-                                #4 <i class="fas fa-fire"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- <form> -->
-
-    <!-- </form> -->
+    </form>
 </div>

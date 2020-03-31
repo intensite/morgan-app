@@ -1,0 +1,5 @@
+.current-val{
+    float: right !important;
+    background-color: green;
+    color: white;
+}
