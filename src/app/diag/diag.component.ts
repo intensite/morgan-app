@@ -26,9 +26,9 @@ export class DiagComponent implements OnInit, OnDestroy {
 
 
     decoder(value: string) {
+        const PITCH_AXIS = 1;                       // MPU-6050 Axis when mounted on rocket configuration (X Axis when flat)
         const YAW_AXIS = 0;                         // MPU-6050 Axis when mounted on rocket configuration (Z Axis when flat)
-        const ROLL_AXIS = 1;
-        const PITCH_AXIS = 2;                       // MPU-6050 Axis when mounted on rocket configuration (Y Axis when flat)
+        const ROLL_AXIS = 2;                        // MPU-6050 Axis when mounted on rocket configuration (Y Axis when flat)
         const ACC_X = 3;                            // ACCELEROMETER_X AXIS
         const ACC_Y = 4;                            // ACCELEROMETER_Y AXIS
         const ACC_Z = 5;                            // ACCELEROMETER_Z AXIS
@@ -41,7 +41,7 @@ export class DiagComponent implements OnInit, OnDestroy {
         const decoded = _.split(value, '|');
 
         return {
-            X: decoded[YAW_AXIS], Y: decoded[PITCH_AXIS], Z: decoded[ROLL_AXIS],
+            X: decoded[PITCH_AXIS], Y: decoded[YAW_AXIS], Z: decoded[ROLL_AXIS],
             AX: decoded[ACC_X], AY: decoded[ACC_Y], AZ: decoded[ACC_Z],
             ALT: decoded[ALTI], TEMP: decoded[TEMPC], KPA: decoded[PRESS],
             HUM: decoded[HUMID], VOLT: decoded[VOLTAGE]
