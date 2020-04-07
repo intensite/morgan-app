@@ -109,7 +109,7 @@ export class PyroComponent implements OnInit, OnDestroy {
             break;
             case 'number': 
                 if(Number.isInteger(e.target.valueAsNumber)){
-                    this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.value}`);
+                    this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}"${e.target.value}"`);  // Quotes are necessary for negative numbers arguments :-(
                 }
             break;
             case 'checkbox': 
