@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { BluetoothCore, BrowserWebBluetooth, ConsoleLoggerService } from '@manekinekko/angular-web-bluetooth';
@@ -73,9 +73,10 @@ export class BleService {
       this.pyroSource.next(value);
     });
 
-    this.guidingCharacteristic = await this.ble.getCharacteristic(this.primaryService, PYRO_CHARACT);  // Change to GUIDING_CHARACT
+    this.guidingCharacteristic = await this.ble.getCharacteristic(this.primaryService, GUIDING_CHARACT);  // Change to GUIDING_CHARACT
 
     this.ble.observeValue$(this.guidingCharacteristic).pipe(map(this.decoder)).subscribe(value => {
+      // console.log(value);
       this.guidingSource.next(value);
     });
 
