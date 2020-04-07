@@ -5,29 +5,29 @@
     <thead>
       <tr>
         <th scope="col">Axis</th>
-        <th scope="col">X</th>
-        <th scope="col">Y</th>
-        <th scope="col">Z</th>
+        <th scope="col" class='diag_grid'>X</th>
+        <th scope="col" class='diag_grid'>Y</th>
+        <th scope="col" class='diag_grid'>Z</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <th scope="row">Gyros</th>
-        <td>0.0</td>
-        <td>0.0</td>
-        <td>-0.1</td>
+        <td class='diag_grid'>0.0</td>
+        <td class='diag_grid'>0.0</td>
+        <td class='diag_grid'>-0.1</td>
       </tr>
       <tr>
         <th scope="row">Accels</th>
-        <td>{{value.AX}}</td>
-        <td>{{value.AY}}</td>
-        <td>{{value.AZ}}</td>
+        <td class='diag_grid'>{{value.AX | number:'3.1-1'}}</td>
+        <td class='diag_grid'>{{value.AY | number:'3.1-1'}}</td>
+        <td class='diag_grid'>{{value.AZ | number:'3.1-1'}}</td>
       </tr>
       <tr>
         <th scope="row">Orientation</th>
-        <td>{{value.X}}</td>
-        <td>{{value.Y}}</td>
-        <td>{{value.Z}}</td>
+        <td class='diag_grid'>{{value.X | number:'3.1-1'}}</td>
+        <td class='diag_grid'>{{value.Y | number:'3.1-1'}}</td>
+        <td class='diag_grid'>{{value.Z | number:'3.1-1'}}</td>
       </tr>
     </tbody>
   </table>
@@ -36,11 +36,11 @@
     <tbody>
       <tr>
         <th scope="row">Altitude(Metres)</th>
-        <td>{{value.ALT}}</td>
+        <td class='diag_grid'>{{value.ALT}}</td>
       </tr>
       <tr>
         <th scope="row">Temp(C)</th>
-        <td>{{value.TEMP}}</td>
+        <td class='diag_grid'>{{value.TEMP}}</td>
       </tr>
       <tr>
         <th scope="row">Pression(KPA)</th>
@@ -48,16 +48,13 @@
       </tr>
       <tr>
         <th scope="row">Humidité(KPA)</th>
-        <td>{{value.HUM}}</td>
+        <td class='diag_grid'>{{value.HUM}}</td>
       </tr>
       <tr>
         <th scope="row">Voltage Batterie</th>
-        <td>{{value.VOLT}}</td>
+        <td class='diag_grid'>{{value.VOLT}}</td>
       </tr>
 
     </tbody>
   </table>
-
-  Debug:   {{ value || "000" }}
-
 </div>
