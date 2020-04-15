@@ -171,7 +171,28 @@ export class GuidanceComponent implements OnInit {
     hasError(error: string) {
     }
 
-    update(e) { }
+    update(e) {
+        console.log(`The control name is: ${e.target.name}`);
+        console.log(e);
+        console.log(`${this.MESSAGE_KEY[e.target.name]}"${e.target.value}"`);
+
+        switch (e.target.type) {
+            case 'button': 
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}`);
+            break;
+            case 'number': 
+                if(!Number.isNaN(e.target.valueAsNumber)){
+                    this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}"${e.target.value}"`);  // Quotes are necessary for negative numbers arguments :-(
+                }
+            break;
+            case 'checkbox': 
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+            break;
+            case 'radio': 
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}"${e.target.value}"`);
+            break;
+        }
+    }
 
 
     ngOnDestroy() {
@@ -185,21 +206,26 @@ export class GuidanceComponent implements OnInit {
         SERVO_2_OFFSET: 'SET SERVO_2_OFFSET ',
         SERVO_3_OFFSET: 'SET SERVO_3_OFFSET ',
         SERVO_4_OFFSET: 'SET SERVO_4_OFFSET ',
-        PARACHUTE_DELAY: 'SET PARACHUTE_DELAY ',
-        PYRO_ACTIVATION_DELAY: 'SET PYRO_ACTIVATION_DELAY ',
-        PYRO_1_FIRE_ALTITUDE: 'SET PYRO_1_FIRE_ALTITUDE ',
-        PYRO_2_FIRE_ALTITUDE: 'SET PYRO_2_FIRE_ALTITUDE ',
-        PYRO_3_FIRE_ALTITUDE: 'SET PYRO_3_FIRE_ALTITUDE ',
-        PYRO_4_FIRE_ALTITUDE: 'SET PYRO_4_FIRE_ALTITUDE ',
-        AUTOMATIC_ANGLE_ABORT: 'SET AUTOMATIC_ANGLE_ABORT ',
-        EXCESSIVE_ANGLE_THRESHOLD: 'SET EXCESSIVE_ANGLE_THRESHOLD ',
-        EXCESSIVE_ANGLE_TIME: 'SET EXCESSIVE_ANGLE_TIME ',
 
-        FIRE_PYRO_1: 'SET FIRE_PYRO 1',
-        FIRE_PYRO_2: 'SET FIRE_PYRO 2',
-        FIRE_PYRO_3: 'SET FIRE_PYRO 3',
-        FIRE_PYRO_4: 'SET FIRE_PYRO 4',
-        RESET_PYRO: 'SET RESET_PYRO 1'
+        GUIDING_TYPE: 'SET GUIDING_TYPE ',
+        SERVO_1_ORIENTATION: 'SET SERVO_1_ORIENTATION ',
+        SERVO_2_ORIENTATION: 'SET SERVO_2_ORIENTATION ',
+        SERVO_3_ORIENTATION: 'SET SERVO_3_ORIENTATION ',
+        SERVO_4_ORIENTATION: 'SET SERVO_4_ORIENTATION ',
+
+ 
+
+        PID_PITCH_Kp: 'SET PID_PITCH_Kp ',
+        PID_PITCH_Ki: 'SET PID_PITCH_Ki ',
+        PID_PITCH_Kd: 'SET PID_PITCH_Kd ',
+
+        PID_YAW_Kp: 'SET PID_YAW_Kp ',
+        PID_YAW_Ki: 'SET PID_YAW_Ki ',
+        PID_YAW_Kd: 'SET PID_YAW_Kd ',
+
+        PID_ROLL_Kp: 'SET PID_ROLL_Kp ',
+        PID_ROLL_Ki: 'SET PID_ROLL_Ki ',
+        PID_ROLL_Kd: 'SET PID_ROLL_Kd ',
 
     };
 

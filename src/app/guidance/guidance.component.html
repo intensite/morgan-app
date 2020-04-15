@@ -13,13 +13,18 @@
                             <div class="col-sm-6">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio"
-                                        id="radioType1" [value]=1 name="GUIDING_TYPE" formControlName="GUIDING_TYPE">
+                                        id="radioType1" value=1 name="GUIDING_TYPE"  [checked]="value.GUIDING_TYPE == 1" (change)="update($event)">
                                     <label class="form-check-label" for="radioType1">TVC</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio"
-                                        id="radioType2" [value]=2 name="GUIDING_TYPE" formControlName="GUIDING_TYPE">
+                                        id="radioType2" value=2 name="GUIDING_TYPE" [checked]="value.GUIDING_TYPE == 2" (change)="update($event)">
                                     <label class="form-check-label" for="radioType2">Ailettes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio"
+                                        id="radioType3" value=0 name="GUIDING_TYPE" [checked]="value.GUIDING_TYPE == 0" (change)="update($event)">
+                                    <label class="form-check-label" for="radioType3">Désactivé</label>
                                 </div>
                             </div>
                         </div>
@@ -102,12 +107,12 @@
                                             <td>
                                                 <div class="btn-group btn-group-toggle">
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_1_ORIENTATION==-1">
-                                                        <input type="radio" name='SERVO_1_ORIENTATION' formControlName="SERVO_1_ORIENTATION"
-                                                            [value]="-1" > <i class="fas fa-undo"></i>
+                                                        <input type="radio" name='SERVO_1_ORIENTATION' value=-1 name="SERVO_1_ORIENTATION" [checked]="value.SERVO_1_ORIENTATION == -1" 
+                                                            (change)="update($event)"> <i class="fas fa-undo"></i>
                                                     </label>
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_1_ORIENTATION==1">
-                                                        <input type="radio" name='SERVO_1_ORIENTATION' formControlName="SERVO_1_ORIENTATION" 
-                                                        [value]="1" ><i
+                                                        <input type="radio" name='SERVO_1_ORIENTATION' value=1 name="SERVO_1_ORIENTATION" [checked]="value.SERVO_1_ORIENTATION == 1"
+                                                         (change)="update($event)"><i
                                                             class="fas fa-undo fa-flip-horizontal"></i>
                                                     </label>
                                                 </div>
@@ -146,11 +151,11 @@
                                             <td>
                                                 <div class="btn-group btn-group-toggle">
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_2_ORIENTATION==-1">
-                                                        <input type="radio" id="servo2RotaLeft" [value]="-1" name="SERVO_2_ORIENTATION" formControlName="SERVO_2_ORIENTATION">
+                                                        <input type="radio" id="servo2RotaLeft" name="SERVO_2_ORIENTATION" value=-1 name="SERVO_2_ORIENTATION" [checked]="value.SERVO_2_ORIENTATION == -1" (change)="update($event)">
                                                         <i class="fas fa-undo"></i>
                                                     </label>
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_2_ORIENTATION==1">
-                                                        <input type="radio" id="servo2RotaRight" [value]="1" name="SERVO_2_ORIENTATION" formControlName="SERVO_2_ORIENTATION"><i
+                                                        <input type="radio" id="servo2RotaRight" name="SERVO_2_ORIENTATION" value=1 name="SERVO_2_ORIENTATION" [checked]="value.SERVO_2_ORIENTATION == 1" (change)="update($event)"><i
                                                             class="fas fa-undo fa-flip-horizontal"></i>
                                                     </label>
                                                 </div>
@@ -189,11 +194,11 @@
                                             <td>
                                                 <div class="btn-group btn-group-toggle">
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_3_ORIENTATION==-1">
-                                                        <input type="radio" id="servo3RotaLeft" formControlName="SERVO_3_ORIENTATION"
-                                                            checked><i class="fas fa-undo"></i>
+                                                        <input type="radio" id="servo3RotaLeft" value=-1 name="SERVO_3_ORIENTATION" [checked]="value.SERVO_3_ORIENTATION == -1"
+                                                        (change)="update($event)"><i class="fas fa-undo"></i>
                                                     </label>
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_3_ORIENTATION==1">
-                                                        <input type="radio" id="servo3RotaRight" formControlName="SERVO_3_ORIENTATION"><i
+                                                        <input type="radio" id="servo3RotaRight" value=1 name="SERVO_3_ORIENTATION" [checked]="value.SERVO_3_ORIENTATION == 1" (change)="update($event)"><i
                                                             class="fas fa-undo fa-flip-horizontal"></i>
                                                     </label>
                                                 </div>
@@ -232,11 +237,11 @@
                                             <td>
                                                 <div class="btn-group btn-group-toggle">
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_4_ORIENTATION==-1">
-                                                        <input type="radio" id="servo4RotaLeft" formControlName="SERVO_4_ORIENTATION"
-                                                            checked><i class="fas fa-undo"></i>
+                                                        <input type="radio" id="servo4RotaLeft" value=-1 name="SERVO_4_ORIENTATION" [checked]="value.SERVO_4_ORIENTATION == -1" (change)="update($event)">
+                                                        <i class="fas fa-undo"></i>
                                                     </label>
                                                     <label class="btn btn-secondary" [class.active]="value.SERVO_4_ORIENTATION==1">
-                                                        <input type="radio" id="servo4RotaLeft" formControlName="SERVO_4_ORIENTATION"><i
+                                                        <input type="radio" id="servo4RotaLeft" value=1 name="SERVO_4_ORIENTATION" [checked]="value.SERVO_4_ORIENTATION == 1" (change)="update($event)"><i
                                                             class="fas fa-undo fa-flip-horizontal"></i>
                                                     </label>
                                                 </div>
@@ -353,31 +358,51 @@
                                 </tr>
                                 <tr>
                                     <td>P: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm" name="PID_PITCH_Kp"
-                                                formControlName="PID_PITCH_Kp" ></span></td>
+                                                class="form-control form-control-sm" name="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                     <td>P: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
+                                                class="form-control form-control-sm" name="PID_YAW_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_YAW_Kp}}</span></td>
                                     <td>P: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
+                                                class="form-control form-control-sm" name="PID_ROLL_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_ROLL_Kp}}</span></td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;I: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_PITCH_Ki" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Ki}}</span></td>
+                                    <td>&nbsp;I: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_YAW_Ki" (blur)="update($event)"></span><span class='current-val'>{{value.PID_YAW_Ki}}</span></td>
+                                    <td>&nbsp;I: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_ROLL_Ki" (blur)="update($event)"></span><span class='current-val'>{{value.PID_ROLL_Ki}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>D: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_PITCH_Kd" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kd}}</span></td>
+                                    <td>D: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_YAW_Kd" (blur)="update($event)"></span><span class='current-val'>{{value.PID_YAW_Kd}}</span></td>
+                                    <td>D: <span class="pid"><input type="number"
+                                                class="form-control form-control-sm" name="PID_ROLL_Kd" (blur)="update($event)"></span><span class='current-val'>{{value.PID_ROLL_Kd}}</span></td>
+                                </tr>
+
+
+
+
+
+                                <!-- <tr>
+                                    <td>&nbsp;I: <span class="pid"><input type="number"
                                                 class="form-control form-control-sm" name="PID_PITCH_Ki"
-                                                formControlName="PID_PITCH_Ki" ></span></td>
+                                                formControlName="PID_PITCH_Ki"  name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                     <td>&nbsp;I: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
+                                                class="form-control form-control-sm" name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                     <td>&nbsp;I: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
+                                                class="form-control form-control-sm" name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                 </tr>
                                 <tr>
                                     <td>D: <span class="pid"><input type="number"
                                                 class="form-control form-control-sm" name="PID_PITCH_Kd"
-                                                formControlName="PID_PITCH_Kd" ></span></td>
+                                                formControlName="PID_PITCH_Kd"  name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                     <td>D: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
+                                                class="form-control form-control-sm" name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
                                     <td>D: <span class="pid"><input type="number"
-                                                class="form-control form-control-sm"></span></td>
-                                </tr>
+                                                class="form-control form-control-sm" name="PID_PITCH_Kp" formControlName="PID_PITCH_Kp" (blur)="update($event)"></span><span class='current-val'>{{value.PID_PITCH_Kp}}</span></td>
+                                </tr> -->
                             </table>
                         </div>
                     </div>
