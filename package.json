@@ -28,7 +28,7 @@
     "@types/lodash": "^4.14.149",
     "@types/web-bluetooth": "^0.0.5",
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "popper.js": "^1.16.1",
     "rxjs": "^6.5.5",
