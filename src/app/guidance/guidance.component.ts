@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { map, endWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { BleService } from '../ble.service';
+// import { BleService } from '../ble.service';
+import { WebsocketService } from '../websocket.service';
 import * as _ from 'lodash';
 
 
@@ -86,7 +87,7 @@ export class GuidanceComponent implements OnInit {
     alignementX = 90;
     alignementY = 90;
 
-    constructor(private fb: FormBuilder, public service: BleService) { 
+    constructor(private fb: FormBuilder, public service: WebsocketService) { 
         this.ADJUSTMENT_FACTOR = 1;
     }
 
@@ -94,8 +95,10 @@ export class GuidanceComponent implements OnInit {
         this.valuesSubscription = this.service.guidingValue.pipe(map(this.decoder)).subscribe(this.updateValue.bind(this), this.hasError.bind(this));
     }
 
-    decoder(value: string) {
-        const decoded = _.split(value, '|');
+    decoder(value: any) {
+        // const decoded = _.split(value, '|');
+        let decoded = _.split(value.data, '|');
+        decoded = decoded.slice(1);  // Get rid of the message type (first item "T3")
 
         return {
             GUIDING_TYPE: parseInt(decoded[0], 10),
@@ -160,6 +163,7 @@ export class GuidanceComponent implements OnInit {
 
     updateValue(value) {
         this.value = value;
+        console.log(value);
         this.guidanceForm.setValue(this.value);
     }
 
@@ -213,7 +217,10 @@ export class GuidanceComponent implements OnInit {
         SERVO_3_ORIENTATION: 'SET SERVO_3_ORIENTATION ',
         SERVO_4_ORIENTATION: 'SET SERVO_4_ORIENTATION ',
 
- 
+        SERVO_1_AXIS: 'SET SERVO_1_AXIS ',
+        SERVO_2_AXIS: 'SET SERVO_2_AXIS ',
+        SERVO_3_AXIS: 'SET SERVO_3_AXIS ',
+        SERVO_4_AXIS: 'SET SERVO_4_AXIS ',
 
         PID_PITCH_Kp: 'SET PID_PITCH_Kp ',
         PID_PITCH_Ki: 'SET PID_PITCH_Ki ',

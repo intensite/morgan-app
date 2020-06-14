@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { BleService } from '../ble.service';
+// import { BleService } from '../ble.service';
+import { WebsocketService } from '../websocket.service';
 import * as _ from 'lodash';
 
 
@@ -55,9 +56,34 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     SCAN_TIME_INTERVAL: 'SET SCAN_TIME_INTERVAL ',
   };
 
-  constructor(private fb: FormBuilder, public service: BleService) { }
+  constructor(private fb: FormBuilder, public service: WebsocketService) { }
 
-  decoder(value: string) {
+  decoder(value: any) {
+
+    
+    if(typeof(value) == "object"){
+      const decoded = _.split(value.data, '|');
+        return {
+          DEBUG: parseInt(decoded[1], 2) == 1 ? true : false,
+          BUZZER_ENABLE: parseInt(decoded[2], 2) == 1 ? true : false,
+          MEMORY_CARD_ENABLED: parseInt(decoded[3], 2) == 1 ? true : false,
+          DATA_RECOVERY_MODE: parseInt(decoded[4], 2) == 1 ? true : false,
+          FORMAT_MEMORY: parseInt(decoded[5], 2) == 1 ? true : false,
+          SCAN_TIME_INTERVAL: parseInt(decoded[6], 10),
+        };
+    } 
+    // else {
+    //   return {
+    //     DEBUG: false,
+    //     BUZZER_ENABLE: false,
+    //     MEMORY_CARD_ENABLED:  false,
+    //     DATA_RECOVERY_MODE:  false,
+    //     FORMAT_MEMORY:  false,
+    //     SCAN_TIME_INTERVAL: null,
+    //   };
+    // }
+
+
     const decoded = _.split(value, '|');
 
     return {

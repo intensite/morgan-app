@@ -11,6 +11,7 @@ import { SysPrefsComponent } from './sys-prefs/sys-prefs.component';
 import { DiagComponent } from './diag/diag.component';
 import { PyroComponent } from './pyro/pyro.component';
 import { GuidanceComponent } from './guidance/guidance.component';
+import { DataComponent } from './data/data.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GuidanceComponent } from './guidance/guidance.component';
     SysPrefsComponent,
     DiagComponent,
     PyroComponent,
-    GuidanceComponent
+    GuidanceComponent,
+    DataComponent
   ],
   imports: [
     BrowserModule,

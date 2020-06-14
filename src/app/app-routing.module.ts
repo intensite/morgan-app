@@ -4,6 +4,7 @@ import { SysPrefsComponent } from './sys-prefs/sys-prefs.component';
 import { DiagComponent } from './diag/diag.component';
 import { PyroComponent } from './pyro/pyro.component';
 import { GuidanceComponent } from './guidance/guidance.component';
+import { DataComponent } from './data/data.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'diag', component: DiagComponent},
   { path: 'pyro', component: PyroComponent},
   { path: 'guidance', component: GuidanceComponent},
+  { path: 'data', component: DataComponent},
   { path: '', redirectTo: '/diag', pathMatch: 'full' },
 ];
 
