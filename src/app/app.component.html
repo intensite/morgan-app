@@ -5,20 +5,36 @@
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/sys-prefs']">Préferences</a>
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/pyro']">Pyro Control</a>
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/guidance']">Guidage</a>
-        <a class="nav-link" routerLinkActive="active" >Données de vol</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/data']">Données de vol</a>
     </nav>
 
 
-    <div *ngIf="!(device | async)" class="alert alert-warning" role="alert">
-        Bluetooth is not connected
-        <span>
-            <button class="btn btn-primary btn-sm float-right" (click)="requestValue()">
-                <i class="fab fa-bluetooth-b"></i> Connect
+    <div *ngIf="!(device)" class="alert alert-warning" role="alert">
+        <div class="row">
+            <div class="col">Morgan flight computer is not connected</div>
+        </div>
+        
+        <div class="row">
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="server" [(ngModel)]="address" placeholder="Example d'adresse Serveur: ws://192.168.4.1:1337">
+        </div>
+        <div class="col-md-2">
+            <!-- <span> -->
+                <button class="btn btn-primary btn-sm float-right" (click)="connect()">
+                    <i class="fab fa-bluetooth-b"></i> Connect
+                </button>
+            <!-- </span> -->
+        </div>
+        </div>
+
+    </div>
+    <div *ngIf="(device) as device" class="alert alert-primary" role="alert">
+        Connected to Morgan
+         <span>
+            <button class="btn btn-danger btn-sm float-right" (click)="disconnect()">
+                <i class="fab fa-bluetooth-b"></i> Disconnect
             </button>
         </span>
-    </div>
-    <div *ngIf="(device | async) as device" class="alert alert-primary" role="alert">
-        Connected to ({{ device.name }})
     </div>
 
     <router-outlet></router-outlet>

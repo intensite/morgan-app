@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { BleService } from '../ble.service';
+// import { BleService } from '../ble.service';
+import { WebsocketService } from '../websocket.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -62,15 +63,17 @@ export class PyroComponent implements OnInit, OnDestroy {
 
     };
 
-    constructor(private fb: FormBuilder, public service: BleService) { }
+    constructor(private fb: FormBuilder, public service: WebsocketService) { }
 
     ngOnInit() {
         this.valuesSubscription = this.service.pyroValue.pipe(map(this.decoder)).subscribe(this.updateValue.bind(this), this.hasError.bind(this));
     }
 
 
-    decoder(value: string) {
-        const decoded = _.split(value, '|');
+    decoder(value: any) {
+        // const decoded = _.split(value, '|');
+        let decoded = _.split(value.data, '|');
+        decoded = decoded.slice(1);  // Get rid of the message type (first item "T3")
 
         return {
             APOGEE_DIFF_METERS: parseInt(decoded[0], 10),
@@ -84,6 +87,7 @@ export class PyroComponent implements OnInit, OnDestroy {
             EXCESSIVE_ANGLE_THRESHOLD: parseInt(decoded[8], 10),
             EXCESSIVE_ANGLE_TIME: parseInt(decoded[9], 10),
         };
+
     }
 
     updateValue(value) {

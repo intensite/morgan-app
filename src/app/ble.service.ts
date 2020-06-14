@@ -4,7 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { BluetoothCore, BrowserWebBluetooth, ConsoleLoggerService } from '@manekinekko/angular-web-bluetooth';
 
 // service and characteristics numbers
-import { BLE_SERVICE, COMMAND_CHARACT, DIAG_CHARACT, PARAM_CHARACT, PYRO_CHARACT, GUIDING_CHARACT } from './consts';
+import { BLE_SERVICE, COMMAND_CHARACT, DIAG_CHARACT, PARAM_CHARACT, PYRO_CHARACT, GUIDING_CHARACT, FLIGHT_DATA_CHARACT } from './consts';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,13 @@ export class BleService {
   private diagSource = new BehaviorSubject('0|0|0|0|0|0|0|0|0|0|0');
   private pyroSource = new BehaviorSubject('0|0|0|0|0|0|0|0|0|0|0');
   private guidingSource = new BehaviorSubject('0|0|0|0|0|0|0|0|0|0|0');
+  private flightDataSource = new BehaviorSubject('0|0|0|0|0|0|0|0|0|0|0');
 
   paramValue = this.paramSource.asObservable();
   diagValue = this.diagSource.asObservable();
   pyroValue = this.pyroSource.asObservable();
   guidingValue = this.guidingSource.asObservable();
+  flightDataValue = this.flightDataSource.asObservable();
 
   private primaryService;
 
@@ -29,6 +31,7 @@ export class BleService {
   private diagCharacteristic;
   private guidingCharacteristic;
   private pyroCharacteristic;
+  private flightDataCharacteristic;
 
   constructor(public ble: BluetoothCore) { }
 
@@ -78,6 +81,13 @@ export class BleService {
     this.ble.observeValue$(this.guidingCharacteristic).pipe(map(this.decoder)).subscribe(value => {
       // console.log(value);
       this.guidingSource.next(value);
+    });
+
+    this.flightDataCharacteristic = await this.ble.getCharacteristic(this.primaryService, FLIGHT_DATA_CHARACT);  // Change to FLIGHT_DATA
+
+    this.ble.observeValue$(this.flightDataCharacteristic).pipe(map(this.decoder)).subscribe(value => {
+      console.log(value);
+      this.flightDataSource.next(value);
     });
 
   }
