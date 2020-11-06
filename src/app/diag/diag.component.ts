@@ -16,8 +16,10 @@ export class DiagComponent implements OnInit, OnDestroy {
         X: 0, Y: 0, Z: 0,
         AX: 0, AY: 0, AZ: 0,
         ALT: 0, TEMP: 0, KPA: 0,
-        HUM: 0, VOLT: 0
+        HUM: 0, VOLT: 0, STATE:0
     };
+
+    states = ['LAUNCH_PAD', 'TRUST_ST1', 'TRUST_ST2', 'COASTING', 'DESCENT', 'CHUTE_DESCENT', 'LANDED'];
     
     // constructor(public service: BleService) {}
     constructor(public service: WebsocketService) {}
@@ -38,17 +40,18 @@ export class DiagComponent implements OnInit, OnDestroy {
         const ACC_Y = 5;                            // ACCELEROMETER_Y AXIS
         const ACC_Z = 6;                            // ACCELEROMETER_Z AXIS
         const ALTI = 7;                             // ALTITUDE
-        const TEMPC = 8;                             // TEMPERATURE
+        const TEMPC = 8;                            // TEMPERATURE
         const PRESS = 9;                            // PRESSURE IN KPA
-        const HUMID = 10;                            // HUMIDITY
+        const HUMID = 10;                           // HUMIDITY
         const VOLTAGE = 11;                         // VOLTAGE
+        const CURRENT_STATE = 12;                   // VOLTAGE
 
 
         let empty_message = {
             X: 0, Y: 0, Z: 0,
             AX: 0, AY: 0, AZ: 0,
             ALT: 0, TEMP: 0, KPA: 0,
-            HUM: 0, VOLT: 0
+            HUM: 0, VOLT: 0, STATE: 0
         };
 
         if(typeof(value) == "object"){
@@ -58,7 +61,7 @@ export class DiagComponent implements OnInit, OnDestroy {
                     X: decoded[PITCH_AXIS], Y: decoded[YAW_AXIS], Z: decoded[ROLL_AXIS],
                     AX: decoded[ACC_X], AY: decoded[ACC_Y], AZ: decoded[ACC_Z],
                     ALT: decoded[ALTI], TEMP: decoded[TEMPC], KPA: decoded[PRESS],
-                    HUM: decoded[HUMID], VOLT: decoded[VOLTAGE]
+                    HUM: decoded[HUMID], VOLT: decoded[VOLTAGE], STATE: decoded[CURRENT_STATE]
                 };
         } else {
             return empty_message;
