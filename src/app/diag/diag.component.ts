@@ -19,7 +19,21 @@ export class DiagComponent implements OnInit, OnDestroy {
         HUM: 0, VOLT: 0, STATE:0
     };
 
-    states = ['LAUNCH_PAD', 'TRUST_ST1', 'TRUST_ST2', 'COASTING', 'DESCENT', 'CHUTE_DESCENT', 'LANDED'];
+    // states = ['LAUNCH_PAD', 'ARMED', 'TRUST_ST1', 'TRUST_ST2', 'COASTING', 'DESCENT', 'CHUTE_DESCENT', 'LANDED'];
+    states = [
+        {stateID: 0, desc: 'LAUNCH_PAD'}, 
+        {stateID: 1, desc: 'ARMED'}, 
+        {stateID: 2, desc: 'TRUST_ST1'}, 
+        {stateID: 3, desc: 'TRUST_ST2'}, 
+        {stateID: 4, desc: 'COASTING'}, 
+        {stateID: 5, desc: 'DESCENT'}, 
+        {stateID: 6, desc: 'CHUTE_DESCENT'}, 
+        {stateID: 7, desc: 'LANDED'}
+    ];
+
+    armed_state_text: string = "Déarmé";
+    armed_state_status: boolean  = false;
+
     
     // constructor(public service: BleService) {}
     constructor(public service: WebsocketService) {}
@@ -72,9 +86,26 @@ export class DiagComponent implements OnInit, OnDestroy {
         this.valuesSubscription = this.service.diagValue.pipe(map(this.decoder)).subscribe(this.updateValue.bind(this), this.hasError.bind(this));
     }
 
+    toggle_armed_state() {
+        if(this.armed_state_status) {
+            this.armed_state_status = false;
+            this.armed_state_text = 'Fusée Déarmé'
+            this.service.setValue(0x1a01, 'SET ARMED_STATUS 0',);
+        } else {
+            this.armed_state_status = true;
+            this.armed_state_text = 'Fusée Armé'
+            this.service.setValue(0x1a01, 'SET ARMED_STATUS 1',);
+        }
+
+    }
+
 
     updateValue(value) {
         this.value = value;
+        if(this.value.STATE == 0 && this.armed_state_status) {
+            this.toggle_armed_state()
+        }
+
     }
 
     disconnect() {

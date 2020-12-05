@@ -55,13 +55,21 @@
         <td class='diag_grid'>{{value.VOLT}}</td>
       </tr>
       <tr>
-        <th scope="row">Current State</th>
-        <td class='diag_grid'>{{states[value.STATE]}}</td>
+        <th scope="row">État actuel</th>
+        <td class='diag_grid'>
+          <div class="row">
+          <div class='col-md-6'>{{states[value.STATE].desc}} {{value.STATE}}</div>
+          <div class='col-md-6'>
+            <button type="button" class='btn  btn-block'  [ngClass]="(armed_state_status)?'btn-danger':'btn-success'" (click)='toggle_armed_state()'>{{armed_state_text}}</button>
+          </div>
+        </div>
+        </td>
       </tr>
       <tr>
         <td class='diag_grid'>Manual Mode</td>
-        <td class='diag_grid'><select>
-          <option>LaunchPad</option>
+        <td class='diag_grid'><select class="form-control" [(ngModel)]="value.STATE">
+          <!-- <option>LaunchPad</option> -->
+          <option *ngFor="let state of states" value="c.id">{{state.desc}}</option>
         </select></td>
       </tr>
 
