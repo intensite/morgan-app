@@ -19,21 +19,23 @@ export class DiagComponent implements OnInit, OnDestroy {
         HUM: 0, VOLT: 0, STATE:0
     };
 
-    // states = ['LAUNCH_PAD', 'ARMED', 'TRUST_ST1', 'TRUST_ST2', 'COASTING', 'DESCENT', 'CHUTE_DESCENT', 'LANDED'];
     states = [
         {stateID: 0, desc: 'LAUNCH_PAD'}, 
         {stateID: 1, desc: 'ARMED'}, 
         {stateID: 2, desc: 'TRUST_ST1'}, 
-        {stateID: 3, desc: 'TRUST_ST2'}, 
-        {stateID: 4, desc: 'COASTING'}, 
-        {stateID: 5, desc: 'DESCENT'}, 
-        {stateID: 6, desc: 'CHUTE_DESCENT'}, 
-        {stateID: 7, desc: 'LANDED'}
+        {stateID: 3, desc: 'COASTING_INTER'}, 
+        {stateID: 4, desc: 'TRUST_ST2'}, 
+        {stateID: 5, desc: 'COASTING'}, 
+        {stateID: 6, desc: 'DESCENT'}, 
+        {stateID: 7, desc: 'CHUTE_DESCENT'}, 
+        {stateID: 8, desc: 'LANDED'}
     ];
 
     armed_state_text: string = "Déarmé";
     armed_state_status: boolean  = false;
+    manualMode_status: boolean  = false;
 
+    manual_state;
     
     // constructor(public service: BleService) {}
     constructor(public service: WebsocketService) {}
@@ -58,7 +60,7 @@ export class DiagComponent implements OnInit, OnDestroy {
         const PRESS = 9;                            // PRESSURE IN KPA
         const HUMID = 10;                           // HUMIDITY
         const VOLTAGE = 11;                         // VOLTAGE
-        const CURRENT_STATE = 12;                   // VOLTAGE
+        const CURRENT_STATE = 12;                   // STATE
 
 
         let empty_message = {
@@ -97,6 +99,20 @@ export class DiagComponent implements OnInit, OnDestroy {
             this.service.setValue(0x1a01, 'SET ARMED_STATUS 1',);
         }
 
+    }
+
+    onManualStateChange(event) {
+        this.manual_state = event.target.value;
+        console.log(this.manual_state);
+        this.service.setValue(0x1a01, `SET MANUAL_STATE ${this.manual_state}`,);
+    }
+
+    toggleManualState() {
+        this.manualMode_status = !this.manualMode_status;
+        if(!this.manualMode_status) {
+            this.manual_state= -1;
+            this.service.setValue(0x1a01, `SET MANUAL_STATE "${this.manual_state}"`,);  // Quotes are necessary for negative numbers arguments :-(
+        }
     }
 
 
