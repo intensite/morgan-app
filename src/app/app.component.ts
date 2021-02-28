@@ -13,7 +13,9 @@ import * as _ from 'lodash';
 
 export class AppComponent implements OnInit, OnDestroy {
   title = 'morgan-app';
-  address = 'ws://192.168.4.1:1337';
+  // address = 'ws://192.168.4.1:1337';
+  address = '';
+  detecting = false;
 
 
   get device() {
@@ -39,6 +41,20 @@ export class AppComponent implements OnInit, OnDestroy {
   disconnect() {
     this.service.disconnectDevice();
   }
+
+  detectFlightComputer() {
+    this.detecting = true;
+    this.address = "Detection en cours...";
+    console.time("Detection");
+    this.service.findServers(1337, "192.168.70.", 2, 254, 40, 6000, (servers) => {
+      console.log(servers);
+      this.detecting = false;
+      this.address = servers[0];
+      console.timeEnd("Detection");
+    });
+
+  }
+
 
   hasError(error: string) {
   }

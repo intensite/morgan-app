@@ -11,17 +11,22 @@
 
     <div *ngIf="!(device)" class="alert alert-warning" role="alert">
         <div class="row">
-            <div class="col">Morgan flight computer is not connected</div>
+            <div class="col" (click)="detectFlightComputer()">Morgan flight computer is not connected</div>
         </div>
         
         <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <input type="text" class="form-control" name="server" [(ngModel)]="address" placeholder="Example d'adresse Serveur: ws://192.168.4.1:1337">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
+            <label [hidden]=!detecting><i class="fas fa-rocket fa-2x fa-spin"></i></label>
+            
             <!-- <span> -->
-                <button class="btn btn-primary btn-sm float-right" (click)="connect()">
+                <button class="btn btn-primary btn-sm float-right ml-2" (click)="connect()">
                     <i class="fab fa-bluetooth-b"></i> Connect
+                </button>
+                <button class="btn btn-warning btn-sm float-right" (click)="detectFlightComputer()">
+                    <i class="fab fa-bluetooth-b"></i> Detect
                 </button>
             <!-- </span> -->
         </div>

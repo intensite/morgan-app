@@ -68,7 +68,7 @@ export class WebsocketService {
         }, // Called whenever there is a message from the server.
         err => {
           console.log(err), // Called if at any point WebSocket API signals some kind of error.
-          this.isConnected = false;
+            this.isConnected = false;
           this.connected_address = null;
         },
         () => {
@@ -88,21 +88,21 @@ export class WebsocketService {
       this.socket$.pipe(map(this.decoder)).subscribe(value => {
 
         // console.log(value.data.slice(0,2));
-        switch(value.data.slice(0,2)) {
+        switch (value.data.slice(0, 2)) {
           case 'T1':
-              this.diagSource.next(value);
-              break;
-            case 'T2':
-              // console.log(value);
-              this.paramSource.next(value);
-              break;
-            case 'T3':
-              this.pyroSource.next(value);
-              break;
-            case 'T4':
-              this.guidingSource.next(value);
-              break;
-            default:
+            this.diagSource.next(value);
+            break;
+          case 'T2':
+            // console.log(value);
+            this.paramSource.next(value);
+            break;
+          case 'T3':
+            this.pyroSource.next(value);
+            break;
+          case 'T4':
+            this.guidingSource.next(value);
+            break;
+          default:
             console.log(`Data of unrecognized type`);
         }
       });
@@ -111,13 +111,13 @@ export class WebsocketService {
     // console.log(device);
     // await this.ble.connectDevice(device)
     // console.log(this.ble._gattServer);
-    
+
     // this.primaryService = await this.ble.getPrimaryService(this.ble._gattServer, BLE_SERVICE);
     // console.log(this.primaryService);
 
     // this.paramCharacteristic = await this.ble.getCharacteristic(this.primaryService, PARAM_CHARACT);
     // // console.log(this.paramCharacteristic);
-    
+
 
     // this.ble.observeValue$(this.paramCharacteristic).pipe(map(this.decoder)).subscribe(value => {
     //   this.paramSource.next(value);
@@ -181,14 +181,14 @@ export class WebsocketService {
     return webSocket({
       url: address,
       deserializer: msg => msg
-  });
+    });
   }
   sendMessage(msg: any) {
     console.log(`About to send message: ${msg}`);
     return this.socket$.next(msg);
   }
   close() {
-    this.socket$.complete(); 
+    this.socket$.complete();
     this.socket$.closed = true;
   }
 
@@ -200,4 +200,59 @@ export class WebsocketService {
     }
     return buf;
   }
+
+  findServers(port, ipBase, ipLow, ipHigh, maxInFlight, timeout, cb: (srv: any) => any) {
+    var ipCurrent = +ipLow, numInFlight = 0, servers = [];
+    ipHigh = +ipHigh;
+    var firstPass = true, serverFound = false;
+
+    function tryOne(ip) {
+      ++numInFlight;
+      var address = "ws://" + ipBase + ip + ":" + port;
+      var socket = new WebSocket(address);
+      // console.log(`FirstPass: ${firstPass}`);
+      var timer = setTimeout(function () {
+        console.log(address + " timeout");
+        var s = socket;
+        socket = null;
+        s.close();
+        --numInFlight;
+        next();
+      }, firstPass==true ? 0 : timeout);
+      firstPass = false;
+      socket.onopen = function () {
+        if (socket) {
+          console.log(address + " success");
+          clearTimeout(timer);
+          servers.push(socket.url);
+          --numInFlight;
+          serverFound = true;
+          next();
+        }
+      };
+      socket.onerror = function (err) {
+        if (socket) {
+          console.log(address + " error");
+          clearTimeout(timer);
+          --numInFlight;
+          next();
+        }
+      }
+    }
+
+    function next() {
+      while (ipCurrent <= ipHigh && numInFlight < maxInFlight && !serverFound) {
+        tryOne(ipCurrent++);
+      }
+      // if we get here and there are no requests in flight, then
+      // we must be done
+      if (numInFlight === 0) {
+        console.log(servers);
+        cb(servers);
+      }
+    }
+
+    next();
+  }
+
 }
