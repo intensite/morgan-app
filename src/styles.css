@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.current-val{
+    float: right !important;
+    background-color: green;
+    color: white;
+}

@@ -4,6 +4,10 @@
 /dist
 /tmp
 /out-tsc
+# Electron Executable Dir
+morgan-app-win32-x64
+*.zip
+
 # Only exists if Bazel was run
 /bazel-out
 

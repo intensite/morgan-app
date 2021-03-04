@@ -71,14 +71,14 @@
           <input type="checkbox" class="form-check-input" [checked]="manualMode_status"
             (change)="toggleManualState()"><span>Manual Mode</span>
         </th>
-        <td class='diag_grid'><select [disabled]="!manualMode_status" class="form-control" name="manualState" 
+        <td class='diag_grid'><select [disabled]="!manualMode_status" class="form-control" name="manualState" [ngModel]="value.STATE"
             (change)='onManualStateChange($event)'>
             <option *ngFor="let state of states" [value]="state.stateID">{{state.desc}}</option>
           </select></td>
       </tr>
       <tr>
         <td>
-          <p>{{manual_state}}---{{states[value.STATE].desc}}-----{{manualMode_status}}</p>
+          <p>{{manual_state}}---{{states[value.STATE].desc}}-{{value.STATE}}-----{{manualMode_status}}</p>
         </td>
       </tr>
 

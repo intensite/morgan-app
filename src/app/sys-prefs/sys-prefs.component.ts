@@ -21,6 +21,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     DATA_RECOVERY_MODE: 0,
     FORMAT_MEMORY: 0,
     SCAN_TIME_INTERVAL: 0,
+    LOCAL_KPA: ["", {updateOn: "blur"}],
   });
 
 
@@ -34,6 +35,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     DATA_RECOVERY_MODE: 0,
     FORMAT_MEMORY: 0,
     SCAN_TIME_INTERVAL: 0,
+    LOCAL_KPA: 101.3,
     // corrEn: 0,
     // corrTime: 0,
     // corrRate: 0,
@@ -54,6 +56,8 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
     DATA_RECOVERY_MODE: 'SET DATA_MODE ',
     FORMAT_MEMORY: 'SET FORMAT_MEM ',
     SCAN_TIME_INTERVAL: 'SET SCAN_TIME_INTERVAL ',
+    LOCAL_KPA: 'SET LOCAL_KPA ',
+    CALIBRATE: 'GET CALIBRATE ',
   };
 
   constructor(private fb: FormBuilder, public service: WebsocketService) { }
@@ -70,6 +74,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
           DATA_RECOVERY_MODE: parseInt(decoded[4], 2) == 1 ? true : false,
           FORMAT_MEMORY: parseInt(decoded[5], 2) == 1 ? true : false,
           SCAN_TIME_INTERVAL: parseInt(decoded[6], 10),
+          LOCAL_KPA: parseFloat(decoded[7]),
         };
     } 
     // else {
@@ -93,6 +98,7 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
       DATA_RECOVERY_MODE: parseInt(decoded[3], 2) == 1 ? true : false,
       FORMAT_MEMORY: parseInt(decoded[4], 2) == 1 ? true : false,
       SCAN_TIME_INTERVAL: parseInt(decoded[5], 10),
+      LOCAL_KPA: parseInt(decoded[6], 10),
     };
   }
 
@@ -102,8 +108,8 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
 
   updateValue(value) {
     this.value = value;
-    // console.log(value);
-    this.sysPrefsForm.setValue(this.value);
+    console.log(value);
+    // this.sysPrefsForm.setValue(this.value);
   }
 
   disconnect() {
@@ -116,9 +122,33 @@ export class SysPrefsComponent implements OnInit, OnDestroy {
   update(e) {
     // console.log(`The checkbox name is: ${e.target.name}`);
     // console.log(`The checkbox value is: ${e.target.checked ? 1 : 0}`);
-    console.log(`${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+    // console.log(`${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
 
-    this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+    // this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+
+/////////////////////////////
+    console.log(`The checkbox name is: ${e.target.name}`);
+    console.log(e);
+    console.log(`${this.MESSAGE_KEY[e.target.name]}`);
+
+    switch (e.target.type) {
+        case 'button': 
+            this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}`);
+        break;
+        case 'number': 
+            if(!Number.isNaN(e.target.valueAsNumber)){
+                this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}"${e.target.value}"`);  // Quotes are necessary for negative numbers arguments :-(
+            }
+        break;
+        case 'checkbox': 
+            this.service.setValue(0x1a01, `${this.MESSAGE_KEY[e.target.name]}${e.target.checked ? 1 : 0}`);
+        break;
+    }
+
+
+    Number.parseFloat
+
+
   }
 
   ngOnDestroy() {

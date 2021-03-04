@@ -112,7 +112,7 @@ export class DiagComponent implements OnInit, OnDestroy {
         if(!this.manualMode_status) {
             this.manual_state= -1;
             this.service.setValue(0x1a01, `SET MANUAL_STATE "${this.manual_state}"`,);  // Quotes are necessary for negative numbers arguments :-(
-        }
+        } 
     }
 
 
