@@ -793,19 +793,19 @@
     ajv "^6.12.0"
     ajv-keywords "^3.4.1"
 
-"@electron/get@^1.0.1", "@electron/get@^1.6.0":
-  version "1.12.2"
-  resolved "https://registry.npmjs.org/@electron/get/-/get-1.12.2.tgz"
+"@electron/get@^1.13.0", "@electron/get@^1.6.0":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.14.1.tgz#16ba75f02dffb74c23965e72d617adc721d27f40"
   dependencies:
     debug "^4.1.1"
     env-paths "^2.2.0"
     fs-extra "^8.1.0"
     got "^9.6.0"
     progress "^2.0.3"
-    sanitize-filename "^1.6.2"
+    semver "^6.2.0"
     sumchecker "^3.0.1"
   optionalDependencies:
-    global-agent "^2.0.2"
+    global-agent "^3.0.0"
     global-tunnel-ng "^2.7.1"
 
 "@fortawesome/angular-fontawesome@0.6.0":
@@ -937,13 +937,17 @@
   version "3.0.3"
   resolved "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.3.tgz"
 
-"@types/node@*", "@types/node@^12.0.12", "@types/node@^12.12.34":
+"@types/node@*", "@types/node@>=10.0.0":
+  version "18.7.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.14.tgz#0fe081752a3333392d00586d815485a17c2cf3c9"
+
+"@types/node@^12.12.34":
   version "12.12.47"
   resolved "https://registry.npmjs.org/@types/node/-/node-12.12.47.tgz"
 
-"@types/node@>=10.0.0":
-  version "18.7.14"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.14.tgz#0fe081752a3333392d00586d815485a17c2cf3c9"
+"@types/node@^16.11.26":
+  version "16.18.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.3.tgz#d7f7ba828ad9e540270f01ce00d391c54e6e0abc"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -2537,10 +2541,6 @@ core-js@3.6.4:
   version "3.6.4"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.6.4.tgz"
 
-core-js@^3.6.5:
-  version "3.8.2"
-  resolved "https://registry.npmjs.org/core-js/-/core-js-3.8.2.tgz"
-
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
@@ -3208,12 +3208,12 @@ electron-to-chromium@^1.3.413:
   version "1.3.473"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.473.tgz"
 
-electron@^11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-11.5.0.tgz#f1650543b9d8f2047d3807755bdb120153ed210f"
+electron@^18.3.7:
+  version "18.3.7"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-18.3.7.tgz#a22a23d63811d067c8e33abc5674122408319265"
   dependencies:
-    "@electron/get" "^1.0.1"
-    "@types/node" "^12.0.12"
+    "@electron/get" "^1.13.0"
+    "@types/node" "^16.11.26"
     extract-zip "^1.0.3"
 
 elliptic@^6.0.0, elliptic@^6.5.2:
@@ -4027,12 +4027,11 @@ glob@^7.0.3, glob@^7.0.6, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, gl
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-global-agent@^2.0.2:
-  version "2.1.12"
-  resolved "https://registry.npmjs.org/global-agent/-/global-agent-2.1.12.tgz"
+global-agent@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/global-agent/-/global-agent-3.0.0.tgz#ae7cd31bd3583b93c5a16437a1afe27cc33a1ab6"
   dependencies:
     boolean "^3.0.1"
-    core-js "^3.6.5"
     es6-error "^4.1.1"
     matcher "^3.0.0"
     roarr "^2.15.3"
@@ -7358,7 +7357,7 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
 
-sanitize-filename@^1.6.2, sanitize-filename@^1.6.3:
+sanitize-filename@^1.6.3:
   version "1.6.3"
   resolved "https://registry.npmjs.org/sanitize-filename/-/sanitize-filename-1.6.3.tgz"
   dependencies:
